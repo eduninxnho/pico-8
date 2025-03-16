@@ -2,15 +2,20 @@ pico-8 cartridge // http://www.pico-8.com
 version 42
 __lua__
 -- teste
-posx = 10
-posy = 10
-function _draw()
-cls()
-rect(posx,posy,50,50,7)
-posx = posx + 1
-posy = posy + 1
+posx = 10 -- Inicializa a posição horizontal (`posx`) do canto superior esquerdo do retângulo com o valor 10.
+posy = 10 -- Inicializa a posição vertical (`posy`) do canto superior esquerdo do retângulo com o valor 10.
 
+function _draw()
+    cls() -- Limpa a tela antes de desenhar qualquer coisa.
+    
+    rect(posx, posy, 50, 50, 7) -- Desenha um retângulo. 
+    -- O retângulo começa na posição (`posx`, `posy`) e vai até as dimensões especificadas (50x50).
+    -- A cor do retângulo é 7 (geralmente branco no PICO-8).
+
+    posx = posx + 1 -- Incrementa a posição `posx`, movendo o retângulo horizontalmente para a direita.
+    posy = posy + 1 -- Incrementa a posição `posy`, movendo o retângulo verticalmente para baixo.
 end
+
 __gfx__
 00000000111111110000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 00000000111111110000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000

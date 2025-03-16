@@ -1,0 +1,69 @@
+No ambiente do **PICO-8**, as funções `_init`, `_update` e `_draw` são **funções especiais** que formam o ciclo de execução do jogo. Vamos detalhar cada uma:
+
+---
+
+### `_init`
+
+- **Propósito:**  
+  É chamada **apenas uma vez** quando o jogo inicia.  
+- **Função:**  
+  Serve para **inicializar variáveis** e definir o **estado inicial** do jogo, como posições, estados dos personagens, configurações, etc.
+- **Analogia:**  
+  Pense nela como a "configuração" ou o "momento de ligar" o jogo, onde tudo é preparado para a execução futura.
+
+---
+
+### `_update`
+
+- **Propósito:**  
+  É chamada **continuamente** a cada ciclo do jogo (frame).  
+- **Função:**  
+  Responsável por **atualizar o estado do jogo**:  
+  - Ler e responder a **entradas** do jogador (teclas, botões, etc.).
+  - Atualizar posições, gerenciar colisões e implementar a **lógica do jogo**.
+- **Importante:**  
+  - **Cuidado com excesso de processamento:**  
+    Como essa função é executada **muitas vezes por segundo** (geralmente 30 a 60 vezes por segundo no PICO-8), adicionar muita lógica ou cálculos complexos nela pode acabar sobrecarregando o ciclo, causando lentidão e queda na performance do jogo.
+
+---
+
+### `_draw`
+
+- **Propósito:**  
+  Também é chamada **continuamente** a cada frame, **após** a `_update`.
+- **Função:**  
+  Responsável por **renderizar** ou desenhar o estado atual do jogo na tela.  
+  - Isso inclui desenhar sprites, formas, textos e quaisquer elementos gráficos.
+- **Separação de responsabilidades:**  
+  É recomendável que a função `_draw` se concentre só em **renderizar a imagem final**, sem realizar operações pesadas de lógica. Isso garante uma taxa de quadros (FPS) constante e uma experiência visual fluida.
+
+---
+
+### Diferenças principais entre `_update` e `_draw`
+
+| Função      | Propósito Principal                        | O que deve conter                              |
+|-------------|--------------------------------------------|------------------------------------------------|
+| `_update`   | Atualizar a lógica e o estado do jogo      | Processamento de entrada, movimentos, colisões, lógica de jogo, cálculos. |
+| `_draw`     | Desenhar o estado atualizado na tela       | Rotinas de renderização, desenho dos elementos gráficos. |
+
+- **Ritmo de Execução:**  
+  Ambos são chamados a cada frame, mas a separação entre lógica (update) e renderização (draw) é fundamental para manter a performance.  
+- **Desempenho:**  
+  Inserir informações ou cálculos muito intensos dentro da `_update` pode causar lentidão, pois essa função precisa concluir suas operações rapidamente para que a atualização do jogo ocorra sem travamentos. Da mesma forma, se `_draw` for sobrecarregada, a renderização pode ficar mais lenta, mas a recomendação é manter cada função focada em sua tarefa principal.
+
+---
+
+### Dica Extra
+
+Para otimizar seu jogo:
+
+- **Mantenha a lógica em `_update` enxuta:**  
+  Separe as tarefas complexas em funções auxiliares ou use técnicas de otimização (como pré-cálculos ou caches) para reduzir o processamento por frame.
+- **Organize bem as chamadas de desenho em `_draw`:**  
+  Evite redesenhar elementos que não mudam sempre, se possível. No PICO-8, cada ciclo conta, então a clareza e a simplicidade nessa função ajudam a manter a performance.
+
+---
+
+Em resumo, a arquitetura de um jogo no PICO-8 se baseia na execução contínua dessas funções: `_init` prepara, `_update` processa e altera o estado do jogo, e `_draw` apresenta visualmente esse estado modificado a cada frame. Essa separação é uma prática comum em desenvolvimento de jogos e ajuda na organização e manutenção do código.
+
+Se precisar de mais dicas ou quiser entender como otimizar outras partes do seu jogo, estou aqui para ajudar!

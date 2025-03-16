@@ -4,57 +4,57 @@ __lua__
 
 
 function _init()
-	cls(-15)
-	sprp=2
-	sprp1=2
-	speed=2
-	x=40
-	y=40
-	by=y-2 																		
+    cls(-15) -- Limpa a tela e preenche com a cor -15 (possivelmente equivalente a preto dependendo da paleta utilizada).
+    sprp=2 -- Define `sprp` (propriedade do sprite, como escala) com valor 2.
+    sprp1=2 -- Define `sprp1` (outra propriedade do sprite) também com valor 2.
+    speed=2 -- Define a variável `speed` para determinar a velocidade de movimento da nave.
+    x=40 -- Inicializa a posição horizontal da nave (`x`) na tela, começando no ponto 40.
+    y=40 -- Inicializa a posição vertical da nave (`y`) na tela, também no ponto 40.
+    by=y-2 -- Inicializa `by`, possivelmente posição do tiro, um pouco acima da posição da nave (`y-2`).
 end
 
 function _update()
+    -- Faz a nave aparecer no lado oposto da tela quando ultrapassa os limites horizontais.
+    if x>128 then
+        x=x-142 -- Se a posição `x` for maior que 128 (fora da tela), reposiciona-a para o lado esquerdo.
+    end
+    
+    if x<-14 then
+        x=x+142 -- Se `x` for menor que -14 (fora da tela no lado esquerdo), reposiciona-a para o lado direito.
+    end
+    
+    -- Movimenta a nave horizontalmente ao pressionar os botões da direita (1) e esquerda (0).
+    if btn(1) then
+        x=x+speed -- Incrementa a posição horizontal de acordo com a velocidade.
+    end
+    if btn(0) then
+        x=x-speed -- Decrementa a posição horizontal de acordo com a velocidade.
+    end
+    
+    -- Movimenta a nave verticalmente ao pressionar os botões para baixo (3) e para cima (2).
+    if btn(3) then
+        y=y+1 -- Incrementa a posição vertical (movimenta para baixo).
+    end
+    if btn(2) then
+        y=y-speed -- Decrementa a posição vertical (movimenta para cima).
+    end
+    
+    function _draw()
+        cls(-15) -- Limpa a tela novamente antes de redesenhar os gráficos.
 
-		if x>128 then
-		x=x-142
-		end
-		
-		if x<-14 then
-		x=x+142
-		end
-		
-		if btn(1) then
-x=x+speed
+        -- Verifica o botão 4; imprime "nao" perto da posição atual da nave.
+        if btn(4) then
+            print("nao",x-14,y-10,8) -- Imprime a palavra "nao" com cor 8 (geralmente branca).
+        end
 
-		end
-		if btn(0) then
-x=x-speed
+        -- Detecta pressão de botão 5; desenha um sprite extra como algo disparado.
+        if btnp(5) then
+            spr(8,x+4,by) -- Desenha o sprite 8 na posição da nave, ligeiramente ajustado.
+        end
 
-		end
-		if btn(3) then
-y=y+1
-
-		end
-		if btn(2) then
-y=y-speed
-
-		end
-		
-		function _draw()
-	cls(-15)
-	if btn(4) then
-print("nao",x-14,y-10,8)
-
-		end
-		if btnp(5) then
-spr(8,x+4,by)
-
-		end
-	spr(1,x,y,sprp,sprp1)
-
-end
-
-
+        -- Desenha a nave no ponto atual com as propriedades definidas (`sprp`, `sprp1`).
+        spr(1,x,y,sprp,sprp1)
+    end
 end
 __gfx__
 000000000000888ee00000000000000ee00000000000000ee0000000000000000000000000000000000000000000000000000000000000000000000000000000
